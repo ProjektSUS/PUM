@@ -3,8 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Natsu/AndroidStudioProjects/Budzik/app/src/main/res/layout/activity_alarm.xml" value="0.5" />
         <entry key="..\:/Users/Natsu/AndroidStudioProjects/Budzik/app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="..\:/Users/Natsu/AndroidStudioProjects/Budzik/app/src/main/res/layout/activity_settings.xml" value="0.5" />
+        <entry key="..\:/Users/Natsu/AndroidStudioProjects/Budzik/app/src/main/res/layout/activity_settings.xml" value="0.33" />
         <entry key="..\:/Users/Natsu/AndroidStudioProjects/Budzik/app/src/main/res/layout/template.xml" value="0.278125" />
       </map>
     </option>
