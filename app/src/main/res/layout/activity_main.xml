@@ -45,6 +45,7 @@
         app:srcCompat="@drawable/settings" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="319dp"
         android:layout_height="396dp"
         app:layout_constraintBottom_toTopOf="@+id/button_add"
