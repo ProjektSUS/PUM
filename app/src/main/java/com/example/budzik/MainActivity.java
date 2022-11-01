@@ -14,6 +14,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class MainActivity extends AppCompatActivity{
 
     RecyclerView recyclerView;
+    float x1, y1, x2, y2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,26 @@ public class MainActivity extends AppCompatActivity{
         recyclerView = findViewById(R.id.recyclerView);
 
 
-
     }
+
+    public boolean onTouchEvent(MotionEvent touchEvent){
+
+        switch(touchEvent.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                x1 = touchEvent.getX();
+                y1 = touchEvent.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = touchEvent.getX();
+                y2 = touchEvent.getY();
+                if(x1>x2){
+                    Intent intent_swipe = new Intent(MainActivity.this, Timer.class);
+                    startActivity(intent_swipe);
+                }
+                break;
+        }
+
+        return false;
+    }
+
 }
