@@ -1,21 +1,27 @@
 package com.example.budzik;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
+import android.widget.AbsListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class MainActivity extends AppCompatActivity{
 
+    RecyclerView recyclerView;
+    float x1, y1, x2, y2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Przycisk aby przejść do ustawień
         FloatingActionButton button_settings = findViewById(R.id.button_settings);
         button_settings.setOnClickListener(new View.OnClickListener(){
            @Override
@@ -24,6 +30,7 @@ public class MainActivity extends AppCompatActivity{
            }
         });
 
+        //Przycisk aby przejść do dodawania budzików
         FloatingActionButton button_add = findViewById(R.id.button_add);
         button_add.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -31,7 +38,31 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(new Intent(MainActivity.this, MenuAlarm.class));
             }
         });
+
+        //Lista, która wyświetla aktualne budziki
+        recyclerView = findViewById(R.id.recyclerView);
+
+
     }
 
+    public boolean onTouchEvent(MotionEvent touchEvent){
+
+        switch(touchEvent.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                x1 = touchEvent.getX();
+                y1 = touchEvent.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = touchEvent.getX();
+                y2 = touchEvent.getY();
+                if(x1>x2){
+                    Intent intent_swipe = new Intent(MainActivity.this, Timer.class);
+                    startActivity(intent_swipe);
+                }
+                break;
+        }
+
+        return false;
+    }
 
 }

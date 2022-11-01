@@ -5,29 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/editTextTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:ems="10"
-        android:inputType="time"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Dni, w których alarm ma się włączyć:"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.087"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTime" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/button_back_al"
         android:layout_width="56dp"
@@ -39,68 +16,85 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="?attr/actionModeCloseDrawable" />
 
-    <CheckBox
-        android:id="@+id/checkBox_pon"
+    <TimePicker
+        android:id="@+id/timePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Poniedziałek"
+        android:layout_marginTop="72dp"
+        android:timePickerMode="spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="parent"></TimePicker>
 
-    <CheckBox
-        android:id="@+id/checkBox_wt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="257dp"
         android:layout_marginStart="16dp"
-        android:text="Wtorek"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_addAl"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox_pon" />
+        app:layout_constraintTop_toBottomOf="@+id/timePicker">
 
-    <CheckBox
-        android:id="@+id/checkBox_nd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Niedziela"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox_sb" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <CheckBox
-        android:id="@+id/checkBox_sb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Sobota"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox_pt" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autoText="false"
+                android:clickable="false"
+                android:text="Dni, w które alarm ma się uruchomić:" />
 
-    <CheckBox
-        android:id="@+id/checkBox_pt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Piątek"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox_czw" />
+            <CheckBox
+                android:id="@+id/checkBox_pn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Poniedziałek" />
 
-    <CheckBox
-        android:id="@+id/checkBox_sr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Środa"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox_wt" />
+            <CheckBox
+                android:id="@+id/checkBox_wt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Wtorek" />
 
-    <CheckBox
-        android:id="@+id/checkBox_czw"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Czwartek"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox_sr" />
+            <CheckBox
+                android:id="@+id/checkBox_sr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Środa" />
+
+            <CheckBox
+                android:id="@+id/checkBox_czw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Czwartek" />
+
+            <CheckBox
+                android:id="@+id/checkBox_pt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Piątek" />
+
+            <CheckBox
+                android:id="@+id/checkBox_sb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sobota" />
+
+            <CheckBox
+                android:id="@+id/checkBox_nd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Niedziela" />
+        </LinearLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/button_addAl"
