@@ -25,7 +25,7 @@ public class MathGame extends AppCompatActivity {
     //Zmienne do generowania randomowego liczb
     private int min = -10;
     private int max = 50;
-
+// haha
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
