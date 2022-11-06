@@ -1,13 +1,21 @@
 package com.example.budzik;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -40,6 +48,7 @@ public class MenuAlarm extends AppCompatActivity {
 
         //Ustawianie wartości zegara [TimePicker]
         timePicker = findViewById(R.id.timePicker);
+        timePicker.setIs24HourView(true);
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker timePicker, int hour, int minute) {
@@ -62,13 +71,13 @@ public class MenuAlarm extends AppCompatActivity {
 //                CheckBox checkBox_sb = findViewById(R.id.checkBox_sb);
 //                CheckBox checkBox_nd = findViewById(R.id.checkBox_nd);
 
-                System.out.println("A");
                 System.out.println(hour);
                 System.out.println(minute);
 
-//                setTimer(v);
-//                addToList(v);
+                setTimer();
+//                addToList();
 
+                //Test wibracji na telefonie
 //                if(!vibrator.hasVibrator()){
 //                    return;
 //                }
@@ -77,26 +86,39 @@ public class MenuAlarm extends AppCompatActivity {
 //                    vibrator.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE));
 //                } else{
 //                    vibrator.vibrate(4000);
-//                }
+//               }
 
             }
         });
-
     }
+
 
     //Ustawienie alarmu
-    public void setTimer(View v){
+    public void setTimer(){
+        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        Calendar calendar = Calendar.getInstance();
 
-//        Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
-//        vibrator.vibrate(2000);
-//
-//        Uri notification_Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
-//        Ringtone ringtone = RingtoneManager.getRingtone(getApplicationContext(), notification_Uri);
-//        ringtone.play();
+        calendar.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
+        calendar.set(Calendar.MINUTE, timePicker.getMinute());
+        calendar.set(Calendar.SECOND, 0);
+
+        Intent intent = new Intent(this, MyAlarmReceiver.class);
+        intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+        intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, (int)calendar.getTimeInMillis(), intent,0);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        } else {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        }
+
+        Toast.makeText(this, "Alarm ustawiony", Toast.LENGTH_SHORT).show();
+
+
     }
 
-    public void addToList(View v) {
+    public void addToList() {
 
     }
-
 }
