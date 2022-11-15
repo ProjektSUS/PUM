@@ -26,5 +26,7 @@ public class MyAlarmReceiver extends BroadcastReceiver {
 
         Toast.makeText(context, "Alarm został uruchomiony", Toast.LENGTH_SHORT).show();
 
+        
+
     }
 }

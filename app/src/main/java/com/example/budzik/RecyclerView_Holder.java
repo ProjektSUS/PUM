@@ -15,3 +15,4 @@ public class RecyclerView_Holder extends RecyclerView.ViewHolder {
         active_days = itemView.findViewById(R.id.active_days);
     }
 }
+
