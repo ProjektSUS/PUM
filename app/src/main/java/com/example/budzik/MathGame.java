@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,7 +32,6 @@ public class MathGame extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mathgame);
         getAnswer();
-
     }
 
     public void generateNumbers(){
@@ -58,19 +58,22 @@ public class MathGame extends AppCompatActivity {
         button_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                answer = Integer.valueOf(answer_in.getText().toString());
+
+                try{
+                    answer = Integer.parseInt(answer_in.getText().toString());
+                } catch(NumberFormatException ex){
+                    answer = -7898;
+                    Toast.makeText(MathGame.this, "Wpisz odpowiedź!", Toast.LENGTH_SHORT).show();
+                }
 
                 if(result != answer){
                     generateNumbers();
                     textViewOperation.setText(number_one + " + " + number_two + " =");
-                    answer = Integer.valueOf(answer_in.getText().toString());
-                    System.out.println("Result" + result);
-                    System.out.println("Answer" + answer);
+                    Toast.makeText(MathGame.this, "Błędna odpowiedź", Toast.LENGTH_SHORT).show();
                     vibrator.vibrate(1000);
                 }else{
                     startActivity(new Intent(MathGame.this, Timer.class));
-                    System.out.println("Result" + result);
-                    System.out.println("Answer" + answer);
+                    Toast.makeText(MathGame.this, "Poprawna odpowiedź", Toast.LENGTH_SHORT).show();
                     ringtone.stop();
                 }
 

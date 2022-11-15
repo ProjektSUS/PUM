@@ -1,6 +1,7 @@
 package com.example.budzik;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -9,6 +10,9 @@ import android.view.*;
 import android.widget.AbsListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity{
@@ -41,6 +45,17 @@ public class MainActivity extends AppCompatActivity{
 
         //Lista, która wyświetla aktualne budziki
         recyclerView = findViewById(R.id.recyclerView);
+
+        List<Item> items = new ArrayList<>();
+        items.add(new Item("00:00", ""));
+        items.add(new Item("03:00", ""));
+        items.add(new Item("04:00", ""));
+        items.add(new Item("05:00", ""));
+        items.add(new Item("06:00", ""));
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new RecyclerView_Adapter(getApplicationContext(),items));
 
 
     }
