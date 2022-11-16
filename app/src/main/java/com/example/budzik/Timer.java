@@ -40,7 +40,7 @@ public class Timer extends AppCompatActivity {
             public void onClick(View view) {
                 if(TimerRunning){
                     pauseTimer();
-                }else{
+                } else {
                     startTimer();
                 }
             }
@@ -102,7 +102,6 @@ public class Timer extends AppCompatActivity {
     }
 
     public boolean onTouchEvent(MotionEvent touchEvent){
-
         switch(touchEvent.getAction()){
             case MotionEvent.ACTION_DOWN:
                 x1 = touchEvent.getX();
@@ -117,7 +116,6 @@ public class Timer extends AppCompatActivity {
                 }
                 break;
         }
-
         return false;
     }
 

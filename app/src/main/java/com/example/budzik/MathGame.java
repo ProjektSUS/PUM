@@ -1,11 +1,14 @@
 package com.example.budzik;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +25,7 @@ public class MathGame extends AppCompatActivity {
     EditText answer_in;
     TextView textViewOperation;
     Button button_submit;
+    SharedPreferences sharedPreferences;
 
     //Zmienne do generowania randomowego liczb
     private int min = -10;
@@ -32,6 +36,8 @@ public class MathGame extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mathgame);
         getAnswer();
+
+        Toast.makeText(MathGame.this, "Alarm został uruchomiony", Toast.LENGTH_SHORT).show();
     }
 
     public void generateNumbers(){
@@ -47,8 +53,12 @@ public class MathGame extends AppCompatActivity {
         generateNumbers();
         textViewOperation.setText(number_one + " + " + number_two + " =");
 
+        sharedPreferences = getSharedPreferences("Vibration_preferences", Context.MODE_PRIVATE);
+        int VibrationTime = sharedPreferences.getInt("VibrationTime", 0);
+        int VibrationTime_Bad = sharedPreferences.getInt("VibrationTime_Bad", 0);
+
         Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
-        vibrator.vibrate(3000);
+        vibrator.vibrate(VibrationTime);
 
         Uri notification_Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
         Ringtone ringtone = RingtoneManager.getRingtone(getApplicationContext(), notification_Uri);
@@ -70,9 +80,9 @@ public class MathGame extends AppCompatActivity {
                     generateNumbers();
                     textViewOperation.setText(number_one + " + " + number_two + " =");
                     Toast.makeText(MathGame.this, "Błędna odpowiedź", Toast.LENGTH_SHORT).show();
-                    vibrator.vibrate(1000);
+                    vibrator.vibrate(VibrationTime_Bad);
                 }else{
-                    startActivity(new Intent(MathGame.this, Timer.class));
+                    startActivity(new Intent(MathGame.this, MainActivity.class));
                     Toast.makeText(MathGame.this, "Poprawna odpowiedź", Toast.LENGTH_SHORT).show();
                     ringtone.stop();
                 }
