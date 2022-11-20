@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +28,8 @@ public class MenuAlarm extends AppCompatActivity {
     TimePicker timePicker;
     int hour, minute;
     ArrayList<Item> arrayList;
+    Intent intent;
+    Uri mCurrentReminderUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,28 +64,20 @@ public class MenuAlarm extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 //Sprawdzenie, które dni tygodnia są zaznaczone
-//                CheckBox checkBox_pn = findViewById(R.id.checkBox_pn);
-//                CheckBox checkBox_wt = findViewById(R.id.checkBox_wt);
-//                CheckBox checkBox_sr = findViewById(R.id.checkBox_sr);
-//                CheckBox checkBox_czw = findViewById(R.id.checkBox_czw);
-//                CheckBox checkBox_pt = findViewById(R.id.checkBox_pt);
-//                CheckBox checkBox_sb = findViewById(R.id.checkBox_sb);
-//                CheckBox checkBox_nd = findViewById(R.id.checkBox_nd);
+                CheckBox checkBox_pn = findViewById(R.id.checkBox_pn);
+                CheckBox checkBox_wt = findViewById(R.id.checkBox_wt);
+                CheckBox checkBox_sr = findViewById(R.id.checkBox_sr);
+                CheckBox checkBox_czw = findViewById(R.id.checkBox_czw);
+                CheckBox checkBox_pt = findViewById(R.id.checkBox_pt);
+                CheckBox checkBox_sb = findViewById(R.id.checkBox_sb);
+                CheckBox checkBox_nd = findViewById(R.id.checkBox_nd);
 
                 setAlarm();
                 saveData(hour, minute);
 
+                intent = getIntent();
+                mCurrentReminderUri = intent.getData();
 
-                //Test wibracji na telefonie
-//                if(!vibrator.hasVibrator()){
-//                    return;
-//                }
-//
-//                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
-//                    vibrator.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE));
-//                } else{
-//                    vibrator.vibrate(4000);
-//               }
 
             }
         });
@@ -120,18 +115,6 @@ public class MenuAlarm extends AppCompatActivity {
         }
 
         Toast.makeText(this, "Alarm ustawiony", Toast.LENGTH_SHORT).show();
-
-
-
-        //delete
-        AlarmManager alarmManager2 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent myIntent3 = new Intent(getApplicationContext(),
-                MyAlarmReceiver.class);
-        PendingIntent pendingIntent2 = PendingIntent.getBroadcast(
-                getApplicationContext(), (int)calendar.getTimeInMillis(), myIntent3, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        alarmManager2.cancel(pendingIntent2);
-
     }
 
     public void loadData(){
@@ -152,9 +135,6 @@ public class MenuAlarm extends AppCompatActivity {
         String hour_s, minute_s;
         hour_s = String.valueOf(hour);
         minute_s = String.valueOf(minute);
-        System.out.println(hour + " " + minute);
-        System.out.println(hour_s + " " + minute_s);
-
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("AlarmTime_preferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -163,8 +143,25 @@ public class MenuAlarm extends AppCompatActivity {
         String json = gson.toJson(arrayList);
         editor.putString("alarm_data", json);
         editor.apply();
-
     }
 
+    public void cancelTimer(){
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent myIntent = new Intent(getApplicationContext(),
+                MyAlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                getApplicationContext(), 1, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        alarmManager.cancel(pendingIntent);
+
+        Toast.makeText(this, "Alarm został usunięty", Toast.LENGTH_SHORT).show();
+    }
 
 }
+
+
+//                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+//                    vibrator.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE));
+//                } else{
+//                    vibrator.vibrate(4000);
+//               }

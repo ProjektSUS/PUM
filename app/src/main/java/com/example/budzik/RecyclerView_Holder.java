@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 public class RecyclerView_Holder extends RecyclerView.ViewHolder {
     TextView alarm_timeHour, alarm_timeMinute, alarm_timeSpace;
     Button delete_button;
-    Uri mCurrentReminderUri;
 
     public RecyclerView_Holder(@NonNull View itemView){
         super(itemView);
@@ -23,16 +22,16 @@ public class RecyclerView_Holder extends RecyclerView.ViewHolder {
         //active_days = itemView.findViewById(R.id.active_days);
     }
 
-    public void onBindViewHolder(RecyclerView_Holder holder) {
-        delete_button = itemView.findViewById(R.id.button_delete);
-
-        holder.delete_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-    }
+//    public void onBindViewHolder(RecyclerView_Holder holder) {
+//        delete_button = itemView.findViewById(R.id.button_delete);
+//
+//        holder.delete_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
+//    }
 
 }
 
