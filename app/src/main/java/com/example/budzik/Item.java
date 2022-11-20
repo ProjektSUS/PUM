@@ -2,27 +2,26 @@ package com.example.budzik;
 
 public class Item {
 
-    String time;
-    String active;
+    String hour, minute;
 
-    public Item(String time, String active) {
-        this.time = time;
-        this.active = active;
+    public Item(String hour, String minute) {
+        this.hour = hour;
+        this.minute = minute;
     }
 
-    public String getTime() {
-        return time;
+    public String getHour() {
+        return hour;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setHour(String hour) {
+        this.hour = hour;
     }
 
-    public String getActive() {
-        return active;
+    public String getMinute() {
+        return minute;
     }
 
-    public void setActive(String active) {
-        this.active = active;
+    public void setMinute(String minute) {
+        this.minute = minute;
     }
 }

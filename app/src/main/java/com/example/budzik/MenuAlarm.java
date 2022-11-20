@@ -4,23 +4,20 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
-
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -29,13 +26,14 @@ public class MenuAlarm extends AppCompatActivity {
     Button button_addAl;
     TimePicker timePicker;
     int hour, minute;
+    ArrayList<Item> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
 
-        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        loadData();
 
         //Przycisk powrotu
         FloatingActionButton button_back_al = findViewById(R.id.button_back_al);
@@ -71,11 +69,9 @@ public class MenuAlarm extends AppCompatActivity {
 //                CheckBox checkBox_sb = findViewById(R.id.checkBox_sb);
 //                CheckBox checkBox_nd = findViewById(R.id.checkBox_nd);
 
-                System.out.println(hour);
-                System.out.println(minute);
+                setAlarm();
+                saveData(hour, minute);
 
-                setTimer();
-//                addToList();
 
                 //Test wibracji na telefonie
 //                if(!vibrator.hasVibrator()){
@@ -94,13 +90,23 @@ public class MenuAlarm extends AppCompatActivity {
 
 
     //Ustawienie alarmu
-    public void setTimer(){
+    public void setAlarm(){
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
+        Calendar calendar_now = Calendar.getInstance();
+
+        Date date = new Date();
+
+        calendar_now.setTime(date);
+        calendar.setTime(date);
 
         calendar.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
         calendar.set(Calendar.MINUTE, timePicker.getMinute());
         calendar.set(Calendar.SECOND, 0);
+
+        if(calendar.before(calendar_now)){
+            calendar.add(Calendar.DATE,1);
+        }
 
         Intent intent = new Intent(this, MyAlarmReceiver.class);
         intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
@@ -116,9 +122,49 @@ public class MenuAlarm extends AppCompatActivity {
         Toast.makeText(this, "Alarm ustawiony", Toast.LENGTH_SHORT).show();
 
 
+
+        //delete
+        AlarmManager alarmManager2 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent myIntent3 = new Intent(getApplicationContext(),
+                MyAlarmReceiver.class);
+        PendingIntent pendingIntent2 = PendingIntent.getBroadcast(
+                getApplicationContext(), (int)calendar.getTimeInMillis(), myIntent3, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        alarmManager2.cancel(pendingIntent2);
+
     }
 
-    public void addToList() {
+    public void loadData(){
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("AlarmTime_preferences", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("alarm_data", null);
+        Type type = new TypeToken<ArrayList<Item>>(){}.getType();
+
+        arrayList = gson.fromJson(json, type);
+
+        if(arrayList == null){
+            arrayList = new ArrayList<>();
+        }
 
     }
+
+    public void saveData(int hour, int minute){
+        String hour_s, minute_s;
+        hour_s = String.valueOf(hour);
+        minute_s = String.valueOf(minute);
+        System.out.println(hour + " " + minute);
+        System.out.println(hour_s + " " + minute_s);
+
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("AlarmTime_preferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        Gson gson = new Gson();
+        arrayList.add(new Item(hour_s, minute_s));
+        String json = gson.toJson(arrayList);
+        editor.putString("alarm_data", json);
+        editor.apply();
+
+    }
+
+
 }

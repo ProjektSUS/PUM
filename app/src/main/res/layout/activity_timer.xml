@@ -6,16 +6,6 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/button_reset"
-        android:layout_width="99dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginBottom="160dp"
-        android:text="RESET"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
         android:id="@+id/button_start"
         android:layout_width="99dp"
         android:layout_height="54dp"
@@ -26,6 +16,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toEndOf="@+id/button_reset" />
+
+    <Button
+        android:id="@+id/button_reset"
+        android:layout_width="99dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginBottom="160dp"
+        android:text="RESET"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/mTextViewCotunDown"

@@ -14,6 +14,7 @@ public class RecyclerView_Adapter extends RecyclerView.Adapter<RecyclerView_Hold
     Context context;
     List<Item> items;
 
+
     public RecyclerView_Adapter(Context context, List<Item> items) {
         this.context = context;
         this.items = items;
@@ -27,12 +28,15 @@ public class RecyclerView_Adapter extends RecyclerView.Adapter<RecyclerView_Hold
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView_Holder holder, int position) {
-        holder.time_alarm.setText(items.get(position).getTime());
-        holder.active_days.setText(items.get(position).getActive());
+        holder.alarm_timeHour.setText(items.get(position).getHour());
+        holder.alarm_timeMinute.setText(items.get(position).getMinute());
+        holder.alarm_timeSpace.setText(":");
     }
 
     @Override
     public int getItemCount() {
         return items.size();
     }
+
+
 }

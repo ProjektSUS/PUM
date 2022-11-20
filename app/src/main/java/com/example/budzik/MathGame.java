@@ -73,7 +73,6 @@ public class MathGame extends AppCompatActivity {
                     answer = Integer.parseInt(answer_in.getText().toString());
                 } catch(NumberFormatException ex){
                     answer = -7898;
-                    Toast.makeText(MathGame.this, "Wpisz odpowiedź!", Toast.LENGTH_SHORT).show();
                 }
 
                 if(result != answer){
