@@ -94,13 +94,13 @@ public class MainActivity extends AppCompatActivity{
         return false;
     }
 
-    public static void cancelAlarm(Context context, Uri reminder){
-        AlarmManager manager = AlarmManagerProvider.getAlarmManager(context);
-        PendingIntent operation = ReminderAlarmService.getReminderPendingIntent(context, reminder);
-        manager.cancel(operation);
-
-
-    }
+//    public static void cancelAlarm(Context context, Uri reminder){
+//        AlarmManager manager = AlarmManagerProvider.getAlarmManager(context);
+//        PendingIntent operation = ReminderAlarmService.getReminderPendingIntent(context, reminder);
+//        manager.cancel(operation);
+//
+//
+//    }
 
     public void loadData(){
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("AlarmTime_preferences", Context.MODE_PRIVATE);

@@ -72,12 +72,11 @@ public class MenuAlarm extends AppCompatActivity {
                 CheckBox checkBox_sb = findViewById(R.id.checkBox_sb);
                 CheckBox checkBox_nd = findViewById(R.id.checkBox_nd);
 
-                setAlarm();
-                saveData(hour, minute);
-
                 intent = getIntent();
                 mCurrentReminderUri = intent.getData();
 
+                setAlarm();
+                saveData(hour, minute);
 
             }
         });
