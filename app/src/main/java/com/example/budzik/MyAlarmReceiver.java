@@ -19,7 +19,7 @@ public class MyAlarmReceiver extends BroadcastReceiver {
 
 //        Vibrator vibrator_2 = (Vibrator) context.getSystemService(VIBRATOR_SERVICE);
 //        vibrator_2.vibrate(2000);
-//
+
 //        Uri notification_Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
 //        Ringtone ringtone = RingtoneManager.getRingtone(context, notification_Uri);
 //        ringtone.play();
