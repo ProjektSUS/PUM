@@ -16,7 +16,7 @@ import java.util.Locale;
 
 public class Timer extends AppCompatActivity {
 
-    private static final long START_TIME_IN_MILIS = 10000;
+    private static final long START_TIME_IN_MILIS = 1000;
     private TextView TextViewCountDown;
     private Button buttonStartPause;
     private Button buttonReset;

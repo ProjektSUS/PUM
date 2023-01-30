@@ -116,6 +116,7 @@ public class MenuAlarm extends AppCompatActivity {
         Toast.makeText(this, "Alarm ustawiony", Toast.LENGTH_SHORT).show();
     }
 
+    //Wczytywanie danych
     public void loadData(){
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("AlarmTime_preferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
@@ -130,6 +131,7 @@ public class MenuAlarm extends AppCompatActivity {
 
     }
 
+    //Zapis danych
     public void saveData(int hour, int minute){
         String hour_s, minute_s;
         hour_s = String.valueOf(hour);
