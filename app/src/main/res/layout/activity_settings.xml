@@ -36,7 +36,7 @@
         android:layout_width="343dp"
         android:layout_height="60dp"
         android:layout_margin="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:hint="@string/select"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -64,36 +64,11 @@
         android:layout_width="340dp"
         android:layout_height="34dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="Długość wibracji alarmu:"
         android:textSize="20sp"
         app:autoSizeTextType="none"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="34dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="Aktualna: "
-        android:textSize="20sp"
-        app:autoSizeTextType="none"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
-
-    <TextView
-        android:id="@+id/textView_actual"
-        android:layout_width="wrap_content"
-        android:layout_height="34dp"
-        android:layout_marginTop="8dp"
-        android:text="Dodawanie"
-        android:textSize="20sp"
-        app:autoSizeTextType="none"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
     <EditText
@@ -101,7 +76,7 @@
         android:layout_width="174dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="number"
         android:textSize="16sp"
@@ -113,7 +88,7 @@
         android:layout_width="340dp"
         android:layout_height="34dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:text="Długość wibracji - zła odpowiedź:"
         android:textSize="20sp"
         app:autoSizeTextType="none"
@@ -136,7 +111,7 @@
         android:layout_width="174dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="number"
         android:textSize="16sp"

@@ -57,15 +57,12 @@ public class Settings extends AppCompatActivity {
         sharedPreferences_puzzle = getSharedPreferences("PuzzlePreference", Context.MODE_PRIVATE);
         selected_puzzle = sharedPreferences_puzzle.getString("chosen_puzzle", "");
 
-        //Ustawianie tekstu
-        TextView textView_actual = findViewById(R.id.textView_actual);
-        textView_actual.setText(selected_puzzle);
-
         //Wybór zagadki z listy rozwijanej:
         autoCompleteTextView = findViewById(R.id.auto_complete_txt);
         adapterItems = new ArrayAdapter<String>(this, R.layout.list_item, puzzle);
-        autoCompleteTextView.setAdapter(adapterItems);
 
+        autoCompleteTextView.setText(selected_puzzle);
+        autoCompleteTextView.setAdapter(adapterItems);
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
