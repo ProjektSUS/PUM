@@ -1,6 +1,9 @@
 package com.example.budzik;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +18,7 @@ import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.view.*;
 import android.widget.AbsListView;
+import android.widget.Adapter;
 import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -57,21 +61,32 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        //Lista, która wyświetla aktualne budziki
-        loadData();
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new RecyclerView_Adapter(getApplicationContext(),arrayList));
 
-        recyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AlarmManager.class);
-                startActivity(intent);
-            }
-        });
-
-
+        //W toku - może będzie działać -> 2 klasy z nazwą RecyclerView pomijamy w aktualnym momencie działania aplikacji
+//        //Lista, która wyświetla aktualne budziki
+//        loadData();
+//        recyclerView = findViewById(R.id.recyclerView);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setAdapter(new RecyclerView_Adapter(getApplicationContext(),arrayList));
+//
+//        RecyclerView.ItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+//        recyclerView.addItemDecoration(divider);
+//
+//        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+//            @Override
+//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+//                return false;
+//            }
+//
+//            @Override
+//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+//                int position = viewHolder.getAdapterPosition();
+//                arrayList.remove(position);
+//
+//
+//            }
+//        });
+//        helper.attachToRecyclerView(recyclerView);
     }
 
     public boolean onTouchEvent(MotionEvent touchEvent){
@@ -94,25 +109,19 @@ public class MainActivity extends AppCompatActivity{
         return false;
     }
 
-//    public static void cancelAlarm(Context context, Uri reminder){
-//        AlarmManager manager = AlarmManagerProvider.getAlarmManager(context);
-//        PendingIntent operation = ReminderAlarmService.getReminderPendingIntent(context, reminder);
-//        manager.cancel(operation);
+
+    // Jak nie ma RecyclerView to nam tego na razie nie potrzeba
+//    public void loadData(){
+//        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("AlarmTime_preferences", Context.MODE_PRIVATE);
+//        Gson gson = new Gson();
+//        String json = sharedPreferences.getString("alarm_data", null);
+//        Type type = new TypeToken<ArrayList<Item>>(){}.getType();
 //
+//        arrayList = gson.fromJson(json, type);
+//
+//        if(arrayList == null){
+//            arrayList = new ArrayList<>();
+//        }
 //
 //    }
-
-    public void loadData(){
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("AlarmTime_preferences", Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("alarm_data", null);
-        Type type = new TypeToken<ArrayList<Item>>(){}.getType();
-
-        arrayList = gson.fromJson(json, type);
-
-        if(arrayList == null){
-            arrayList = new ArrayList<>();
-        }
-
-    }
 }

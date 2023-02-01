@@ -36,7 +36,8 @@ public class MenuAlarm extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
 
-        loadData();
+        // Bez RecyclerView, nie potrzeba //Wczytanie budzików z SharedPreferences
+        // loadData();
 
         //Przycisk powrotu
         FloatingActionButton button_back_al = findViewById(R.id.button_back_al);
@@ -63,20 +64,14 @@ public class MenuAlarm extends AppCompatActivity {
         button_addAl.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                //Sprawdzenie, które dni tygodnia są zaznaczone
-                CheckBox checkBox_pn = findViewById(R.id.checkBox_pn);
-                CheckBox checkBox_wt = findViewById(R.id.checkBox_wt);
-                CheckBox checkBox_sr = findViewById(R.id.checkBox_sr);
-                CheckBox checkBox_czw = findViewById(R.id.checkBox_czw);
-                CheckBox checkBox_pt = findViewById(R.id.checkBox_pt);
-                CheckBox checkBox_sb = findViewById(R.id.checkBox_sb);
-                CheckBox checkBox_nd = findViewById(R.id.checkBox_nd);
 
                 intent = getIntent();
                 mCurrentReminderUri = intent.getData();
 
                 setAlarm();
-                saveData(hour, minute);
+
+                // Bez RecyclerView nam nie jest potrzebne //Zapis do SharedPreferences
+                //saveData(hour, minute);
 
             }
         });
