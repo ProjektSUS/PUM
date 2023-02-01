@@ -6,16 +6,6 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/button_reset"
-        android:layout_width="99dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginBottom="160dp"
-        android:text="RESET"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
         android:id="@+id/button_start"
         android:layout_width="99dp"
         android:layout_height="54dp"
@@ -27,6 +17,16 @@
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toEndOf="@+id/button_reset" />
 
+    <Button
+        android:id="@+id/button_reset"
+        android:layout_width="99dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginBottom="160dp"
+        android:text="RESET"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/mTextViewCotunDown"
         android:layout_width="213dp"
@@ -36,6 +36,18 @@
         android:layout_marginEnd="80dp"
         android:text="00:00"
         app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_selectTime"
+        android:layout_width="215dp"
+        android:layout_height="115dp"
+        android:layout_marginTop="160dp"
+        android:onClick="popTimePicker"
+        android:text="Wybierz czas"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
