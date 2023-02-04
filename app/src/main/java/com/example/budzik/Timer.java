@@ -147,8 +147,14 @@ public class Timer extends AppCompatActivity {
                 if(x1<x2){
                     Intent intent_swipe = new Intent(Timer.this, MainActivity.class);
                     startActivity(intent_swipe);
+                } else{
+                    Intent intent_swipe = new Intent(Timer.this, Stoper.class);
+                    startActivity(intent_swipe);
                 }
+
                 break;
+
+
         }
         return false;
     }
