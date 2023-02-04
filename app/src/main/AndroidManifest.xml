@@ -19,37 +19,36 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".MenuAlarm"
             android:exported="false">
         </activity>
+
         <activity
             android:name=".Settings"
             android:exported="false">
-
         </activity>
+
         <activity
             android:name=".Timer"
             android:exported="false">
-
         </activity>
+
         <activity
             android:name=".MathGame"
             android:exported="false">
-
         </activity>
 
         <activity
-            android:name=".AlarmManager"
+            android:name=".Stoper"
             android:exported="false">
-
         </activity>
 
 
         <receiver android:name=".MyAlarmReceiver"
             android:enabled="true"
-            android:exported="false"
-            />
+            android:exported="false" />
 
     </application>
 
