@@ -37,7 +37,7 @@ public class MenuAlarm extends AppCompatActivity {
         setContentView(R.layout.activity_alarm);
 
         // Bez RecyclerView, nie potrzeba //Wczytanie budzików z SharedPreferences
-        // loadData();
+        loadData();
 
         //Przycisk powrotu
         FloatingActionButton button_back_al = findViewById(R.id.button_back_al);
@@ -51,6 +51,8 @@ public class MenuAlarm extends AppCompatActivity {
         //Ustawianie wartości zegara [TimePicker]
         timePicker = findViewById(R.id.timePicker);
         timePicker.setIs24HourView(true);
+        hour = timePicker.getHour();
+        minute = timePicker.getMinute();
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker timePicker, int hour, int minute) {
@@ -71,7 +73,7 @@ public class MenuAlarm extends AppCompatActivity {
                 setAlarm();
 
                 // Bez RecyclerView nam nie jest potrzebne //Zapis do SharedPreferences
-                //saveData(hour, minute);
+                saveData(hour, minute);
 
             }
         });
