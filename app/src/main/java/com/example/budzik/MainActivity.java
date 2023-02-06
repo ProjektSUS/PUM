@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ContentUris;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity{
     List<Item> arrayList = new ArrayList<>();
     Button delete_button;
     Uri mCurrentReminderUri;
+    RecyclerView.Adapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,30 +65,32 @@ public class MainActivity extends AppCompatActivity{
 
 
         //W toku - może będzie działać -> 2 klasy z nazwą RecyclerView pomijamy w aktualnym momencie działania aplikacji
-//        //Lista, która wyświetla aktualne budziki
-//        loadData();
-//        recyclerView = findViewById(R.id.recyclerView);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setAdapter(new RecyclerView_Adapter(getApplicationContext(),arrayList));
-//
-//        RecyclerView.ItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-//        recyclerView.addItemDecoration(divider);
-//
-//        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-//            @Override
-//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-//                return false;
-//            }
-//
-//            @Override
-//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-//                int position = viewHolder.getAdapterPosition();
-//                arrayList.remove(position);
-//
-//
-//            }
-//        });
-//        helper.attachToRecyclerView(recyclerView);
+        //Lista, która wyświetla aktualne budziki
+        loadData();
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter = new RecyclerView_Adapter(getApplicationContext(),arrayList);
+        recyclerView.setAdapter(mAdapter);
+
+        RecyclerView.ItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(divider);
+
+        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+                arrayList.remove(position);
+                mAdapter.notifyDataSetChanged();
+                saveArray();
+            }
+        });
+        helper.attachToRecyclerView(recyclerView);
     }
 
     public boolean onTouchEvent(MotionEvent touchEvent){
@@ -111,17 +115,27 @@ public class MainActivity extends AppCompatActivity{
 
 
     // Jak nie ma RecyclerView to nam tego na razie nie potrzeba
-//    public void loadData(){
-//        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("AlarmTime_preferences", Context.MODE_PRIVATE);
-//        Gson gson = new Gson();
-//        String json = sharedPreferences.getString("alarm_data", null);
-//        Type type = new TypeToken<ArrayList<Item>>(){}.getType();
-//
-//        arrayList = gson.fromJson(json, type);
-//
-//        if(arrayList == null){
-//            arrayList = new ArrayList<>();
-//        }
-//
-//    }
+    public void loadData(){
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("AlarmTime_preferences", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("alarm_data", null);
+        Type type = new TypeToken<ArrayList<Item>>(){}.getType();
+
+        arrayList = gson.fromJson(json, type);
+
+        if(arrayList == null){
+            arrayList = new ArrayList<>();
+        }
+
+    }
+
+    public void saveArray(){
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("AlarmTime_preferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        Gson gson = new Gson();
+        String json = gson.toJson(arrayList);
+        editor.putString("alarm_data", json);
+        editor.apply();
+    }
 }

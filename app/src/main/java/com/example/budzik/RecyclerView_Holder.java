@@ -21,17 +21,5 @@ public class RecyclerView_Holder extends RecyclerView.ViewHolder {
         alarm_timeSpace = itemView.findViewById(R.id.alarm_timeSpace);
         //active_days = itemView.findViewById(R.id.active_days);
     }
-
-    public void onBindViewHolder(RecyclerView_Holder holder) {
-        delete_button = itemView.findViewById(R.id.button_delete);
-
-        holder.delete_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-    }
-
 }
 
